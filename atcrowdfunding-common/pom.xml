@@ -32,10 +32,10 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <exclusions>
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
+            	<exclusion>
+            		<groupId>commons-logging</groupId>
+            		<artifactId>commons-logging</artifactId>
+            	</exclusion>
             </exclusions>
         </dependency>
         <dependency>
