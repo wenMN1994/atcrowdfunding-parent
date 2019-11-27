@@ -24,6 +24,7 @@ target/
 *.iws
 *.iml
 *.ipr
+/out/
 
 ### NetBeans ###
 nbproject/private/
@@ -41,3 +42,12 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+atcrowdfunding-bean/src/main/resources/
+atcrowdfunding-bean/src/test/
+atcrowdfunding-common/src/
+atcrowdfunding-manager-api/src/main/resources/
+atcrowdfunding-manager-api/src/test/
+atcrowdfunding-manager-impl/src/main/java/
+atcrowdfunding-manager-impl/src/test/
+atcrowdfunding-web/src/main/java/
+atcrowdfunding-web/web/WEB-INF/jsp/

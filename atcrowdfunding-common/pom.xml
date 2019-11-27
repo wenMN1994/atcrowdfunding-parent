@@ -12,6 +12,8 @@
     <artifactId>atcrowdfunding-common</artifactId>
     <description>存放所有模块所需要的公共类(jar)</description>
 
+    <packaging>jar</packaging>
+
     <dependencies>
         <!-- 公共依赖 -->
         <dependency>

@@ -12,6 +12,8 @@
     <artifactId>atcrowdfunding-manager-api</artifactId>
     <description>后台管理系统,存放业务层接口和DAO层接口(jar)</description>
 
+    <packaging>jar</packaging>
+
     <dependencies>
 
         <dependency>

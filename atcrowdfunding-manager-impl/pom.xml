@@ -12,6 +12,8 @@
     <artifactId>atcrowdfunding-manager-impl</artifactId>
     <description>后台管理系统,存放控制器类,业务层实现类(jar) ，Dao映射文件</description>
 
+    <packaging>jar</packaging>
+
     <dependencies>
 
         <!-- 业务层需要的所有框架 -->
