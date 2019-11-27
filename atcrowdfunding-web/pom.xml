@@ -45,6 +45,12 @@
             <groupId>com.dragon</groupId>
             <artifactId>atcrowdfunding-manager-impl</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
