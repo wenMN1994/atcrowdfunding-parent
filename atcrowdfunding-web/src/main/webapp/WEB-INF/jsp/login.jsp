@@ -27,21 +27,15 @@
 
     <div class="container">
 
-      <form class="form-signin" role="form">
+      <form id="loginForm" class="form-signin" role="form" action="doLogin" method="post">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
 		  <div class="form-group has-success has-feedback">
-			<input type="text" class="form-control" id="inputSuccess4" placeholder="请输入登录账号" autofocus>
+			<input type="text" class="form-control" id="loginacct" name="loginacct" placeholder="请输入登录账号" autofocus>
 			<span class="glyphicon glyphicon-user form-control-feedback"></span>
 		  </div> 
 		  <div class="form-group has-success has-feedback">
-			<input type="text" class="form-control" id="inputSuccess4" placeholder="请输入登录密码" style="margin-top:10px;">
+			<input type="text" class="form-control" id="userpswd" name="userpswd" placeholder="请输入登录密码" style="margin-top:10px;">
 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-		  </div>
-		  <div class="form-group has-success has-feedback">
-			<select class="form-control" >
-                <option value="member">会员</option>
-                <option value="user">管理</option>
-            </select>
 		  </div>
         <div class="checkbox">
           <label>
@@ -62,12 +56,7 @@
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script>
     function dologin() {
-        var type = $(":selected").val();
-        if ( type == "user" ) {
-            window.location.href = "main.html";
-        } else {
-            window.location.href = "index.html";
-        }
+        $("#loginForm").submit();
     }
     </script>
   </body>
