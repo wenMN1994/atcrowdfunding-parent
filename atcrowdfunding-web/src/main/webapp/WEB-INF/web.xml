@@ -17,6 +17,11 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    
+    <!--项目启动监听器  -->
+    <listener>
+    	<listener-class>com.dragon.atcrowdfunding.listener.AppStartUpListener</listener-class>
+    </listener>
 
 
     <!-- 字符编码过滤器 -->
