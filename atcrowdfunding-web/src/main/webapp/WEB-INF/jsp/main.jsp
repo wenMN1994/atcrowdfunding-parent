@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh_CN">
   <head>
@@ -9,6 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+	<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="${PATH}/static/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${PATH}/static/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${PATH}/static/css/main.css">
@@ -38,13 +40,13 @@
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i> ${loginAdmin.loginacct } <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
 						<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 						<li class="divider"></li>
-						<li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+						<li><a href="${PATH}/logout"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
 					  </ul>
 			    </div>
 			</li>
