@@ -70,7 +70,7 @@
                 <configuration>
                     <webResources>
                         <resource>
-                            <directory>web</directory>
+                            <directory>src/main/webapp</directory>
                         </resource>
                     </webResources>
                 </configuration>
