@@ -3,6 +3,7 @@ package com.dragon.atcrowdfunding.service;
 import java.util.Map;
 
 import com.dragon.atcrowdfunding.bean.TAdmin;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 
@@ -21,5 +22,7 @@ public interface TAdminService {
 	 * @return
 	 */
 	TAdmin getTAdminByLogin(Map<String, Object> paramMap);
+
+	PageInfo<TAdmin> listAdminPage(Map<String, Object> paramMap);
 
 }

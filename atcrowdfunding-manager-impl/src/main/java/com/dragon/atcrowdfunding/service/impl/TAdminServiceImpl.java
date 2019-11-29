@@ -13,6 +13,7 @@ import com.dragon.atcrowdfunding.mapper.TAdminMapper;
 import com.dragon.atcrowdfunding.service.TAdminService;
 import com.dragon.atcrowdfunding.util.Const;
 import com.dragon.atcrowdfunding.util.MD5Util;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 
@@ -53,5 +54,13 @@ public class TAdminServiceImpl implements TAdminService {
 		
 		//5.返回结果
 		return admin;
+	}
+
+	@Override
+	public PageInfo<TAdmin> listAdminPage(Map<String, Object> paramMap) {
+		TAdminExample example = new TAdminExample();
+		List<TAdmin> list = adminMapper.selectByExample(example);
+		PageInfo<TAdmin> page = new PageInfo<TAdmin>(list, 5);
+		return page;
 	}
 }

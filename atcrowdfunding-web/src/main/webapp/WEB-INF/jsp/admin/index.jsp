@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html lang="zh_CN">
 <head>
@@ -76,307 +77,54 @@ table tbody td:nth-child(even) {
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td><input type="checkbox"></td>
-										<td>Lorem</td>
-										<td>ipsum</td>
-										<td>dolor</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td><input type="checkbox"></td>
-										<td>amet</td>
-										<td>consectetur</td>
-										<td>adipiscing</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td><input type="checkbox"></td>
-										<td>Integer</td>
-										<td>nec</td>
-										<td>odio</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td><input type="checkbox"></td>
-										<td>libero</td>
-										<td>Sed</td>
-										<td>cursus</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td><input type="checkbox"></td>
-										<td>dapibus</td>
-										<td>diam</td>
-										<td>Sed</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>6</td>
-										<td><input type="checkbox"></td>
-										<td>Nulla</td>
-										<td>quis</td>
-										<td>sem</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>7</td>
-										<td><input type="checkbox"></td>
-										<td>nibh</td>
-										<td>elementum</td>
-										<td>imperdiet</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>8</td>
-										<td><input type="checkbox"></td>
-										<td>sagittis</td>
-										<td>ipsum</td>
-										<td>Praesent</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>9</td>
-										<td><input type="checkbox"></td>
-										<td>Fusce</td>
-										<td>nec</td>
-										<td>tellus</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>10</td>
-										<td><input type="checkbox"></td>
-										<td>augue</td>
-										<td>semper</td>
-										<td>porta</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>11</td>
-										<td><input type="checkbox"></td>
-										<td>massa</td>
-										<td>Vestibulum</td>
-										<td>lacinia</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>12</td>
-										<td><input type="checkbox"></td>
-										<td>eget</td>
-										<td>nulla</td>
-										<td>Class</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>13</td>
-										<td><input type="checkbox"></td>
-										<td>taciti</td>
-										<td>sociosqu</td>
-										<td>ad</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>14</td>
-										<td><input type="checkbox"></td>
-										<td>torquent</td>
-										<td>per</td>
-										<td>conubia</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>15</td>
-										<td><input type="checkbox"></td>
-										<td>per</td>
-										<td>inceptos</td>
-										<td>himenaeos</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>16</td>
-										<td><input type="checkbox"></td>
-										<td>sodales</td>
-										<td>ligula</td>
-										<td>in</td>
-										<td>
-											<button type="button" class="btn btn-success btn-xs">
-												<i class=" glyphicon glyphicon-check"></i>
-											</button>
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class=" glyphicon glyphicon-pencil"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-xs">
-												<i class=" glyphicon glyphicon-remove"></i>
-											</button>
-										</td>
-									</tr>
+									<c:forEach items="${page.list}" var="admin" varStatus="status">
+										<tr>
+											<td>${status.count}</td>
+											<td><input type="checkbox"></td>
+											<td>${admin.loginacct}</td>
+											<td>${admin.username}</td>
+											<td>${admin.email}</td>
+											<td>
+												<button type="button" class="btn btn-success btn-xs">
+													<i class=" glyphicon glyphicon-check"></i>
+												</button>
+												<button type="button" class="btn btn-primary btn-xs">
+													<i class=" glyphicon glyphicon-pencil"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-xs">
+													<i class=" glyphicon glyphicon-remove"></i>
+												</button>
+											</td>
+										</tr>
+									</c:forEach>
 								</tbody>
 								<tfoot>
 									<tr>
 										<td colspan="6" align="center">
 											<ul class="pagination">
-												<li class="disabled"><a href="#">上一页</a></li>
-												<li class="active"><a href="#">1 <span
-														class="sr-only">(current)</span></a></li>
-												<li><a href="#">2</a></li>
-												<li><a href="#">3</a></li>
-												<li><a href="#">4</a></li>
-												<li><a href="#">5</a></li>
-												<li><a href="#">下一页</a></li>
+												<c:if test="${page.isFirstPage}">
+													<li class="disabled"><a href="#">上一页</a></li>
+												</c:if>
+												<c:if test="${!page.isFirstPage}">
+													<li><a href="${PATH}/admin/index?pageNum=${page.pageNum-1}">上一页</a></li>
+												</c:if>
+												
+												<c:forEach items="${page.navigatepageNums}" var="num">
+													<c:if test="${num == page.pageNum}">
+														<li class="active"><a href="${PATH}/admin/index?pageNum=${num}">${num} <span class="sr-only">(current)</span></a></li>
+													</c:if>
+													<c:if test="${num != page.pageNum}">
+														<li><a href="${PATH}/admin/index?pageNum=${num}">${num}</a></li>
+													</c:if>
+												</c:forEach>
+												
+												
+												<c:if test="${page.isLastPage}">
+													<li class="disabled"><a href="#">下一页</a></li>
+												</c:if>
+												<c:if test="${!page.isLastPage}">
+													<li><a href="${PATH}/admin/index?pageNum=${page.pageNum+1}">下一页</a></li>
+												</c:if>
 											</ul>
 										</td>
 									</tr>
