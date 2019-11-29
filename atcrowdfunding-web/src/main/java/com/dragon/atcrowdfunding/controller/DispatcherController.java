@@ -1,6 +1,7 @@
 package com.dragon.atcrowdfunding.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -13,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dragon.atcrowdfunding.bean.TAdmin;
+import com.dragon.atcrowdfunding.bean.TMenu;
 import com.dragon.atcrowdfunding.service.TAdminService;
+import com.dragon.atcrowdfunding.service.TMenuService;
 import com.dragon.atcrowdfunding.util.Const;
 
 /**
@@ -31,6 +34,9 @@ public class DispatcherController {
 	
 	@Autowired
 	TAdminService adminService;
+	
+	@Autowired
+	TMenuService menuService;
 	
 	@RequestMapping("/index")
 	public String index() {
@@ -75,6 +81,11 @@ public class DispatcherController {
 	
 	@RequestMapping("/main")
 	public String main(HttpSession session){
+		log.debug("跳转到后台系统main首页。。。");
+		
+		//存放父菜单
+		List<TMenu> menuList = menuService.listMenuAll();
+		session.setAttribute("menuList", menuList);
 		return "main";
 	}
 	

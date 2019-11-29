@@ -1,5 +1,8 @@
 package com.dragon.atcrowdfunding.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TMenu {
     private Integer id;
 
@@ -10,6 +13,8 @@ public class TMenu {
     private String icon;
 
     private String url;
+    
+    private List<TMenu> children = new ArrayList<TMenu>();
 
     public Integer getId() {
         return id;
@@ -50,4 +55,13 @@ public class TMenu {
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
     }
+
+	public List<TMenu> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<TMenu> children) {
+		this.children = children;
+	}
+    
 }
