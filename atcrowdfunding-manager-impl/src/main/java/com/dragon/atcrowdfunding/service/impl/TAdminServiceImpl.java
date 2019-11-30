@@ -84,5 +84,10 @@ public class TAdminServiceImpl implements TAdminService {
 	public void editUser(TAdmin admin) {
 		adminMapper.updateByPrimaryKeySelective(admin);
 	}
+
+	@Override
+	public void deleteUser(Integer id) {
+		adminMapper.deleteByPrimaryKey(id);
+	}
 		
 }

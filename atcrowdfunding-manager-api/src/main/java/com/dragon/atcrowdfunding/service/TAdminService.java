@@ -31,4 +31,6 @@ public interface TAdminService {
 
 	void editUser(TAdmin admin);
 
+	void deleteUser(Integer id);
+
 }

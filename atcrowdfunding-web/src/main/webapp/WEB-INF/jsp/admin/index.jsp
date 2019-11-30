@@ -91,7 +91,7 @@ table tbody td:nth-child(even) {
 												<button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='${PATH}/admin/toEdit?pageNum=${page.pageNum}&id=${admin.id}'">
 													<i class=" glyphicon glyphicon-pencil"></i>
 												</button>
-												<button type="button" class="btn btn-danger btn-xs">
+												<button type="button" class="btn btn-danger btn-xs deleteButton" adminId="${admin.id}">
 													<i class=" glyphicon glyphicon-remove"></i>
 												</button>
 											</td>
@@ -150,6 +150,17 @@ table tbody td:nth-child(even) {
 						$("ul", this).show("fast");
 					}
 				}
+			});
+		});
+		
+		$(".deleteButton").click(function() {
+			var id = $(this).attr("adminId");
+			layer.confirm('您是否确定删除该条数据？',{btn:['确定','取消']},function(index){
+				window.location.href="${PATH}/admin/doDelete?pageNum=${page.pageNum}&id="+id;
+				layer.close();
+			},function(index){
+				
+				layer.close();
 			});
 		});
 	</script>

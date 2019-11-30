@@ -79,4 +79,11 @@ public class TAdminController {
 		adminService.editUser(admin);
 		return "redirect:/admin/index?pageNum="+pageNum;
 	}
+	
+	@RequestMapping("/admin/doDelete")
+	public String doDelete(Integer id, Integer pageNum) {
+		log.debug("删除用户。。。");
+		adminService.deleteUser(id);
+		return "redirect:/admin/index?pageNum="+pageNum;
+	}
 }
