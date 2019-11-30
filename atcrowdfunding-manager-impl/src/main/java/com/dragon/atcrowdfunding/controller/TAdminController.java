@@ -64,4 +64,19 @@ public class TAdminController {
 		adminService.saveUser(admin);
 		return "redirect:/admin/index";
 	}
+	
+	@RequestMapping("/admin/toEdit")
+	public String toEdit(Integer id, Model model) {
+		log.debug("跳转用户修改界面。。。");
+		TAdmin admin = adminService.getTAdminById(id);
+		model.addAttribute("admin", admin);
+		return "admin/edit";
+	}
+	
+	@RequestMapping("/admin/editUser")
+	public String editUser(TAdmin admin, Integer pageNum) {
+		log.debug("修改用户。。。");
+		adminService.editUser(admin);
+		return "redirect:/admin/index?pageNum="+pageNum;
+	}
 }

@@ -88,7 +88,7 @@ table tbody td:nth-child(even) {
 												<button type="button" class="btn btn-success btn-xs">
 													<i class=" glyphicon glyphicon-check"></i>
 												</button>
-												<button type="button" class="btn btn-primary btn-xs">
+												<button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='${PATH}/admin/toEdit?pageNum=${page.pageNum}&id=${admin.id}'">
 													<i class=" glyphicon glyphicon-pencil"></i>
 												</button>
 												<button type="button" class="btn btn-danger btn-xs">
@@ -151,12 +151,6 @@ table tbody td:nth-child(even) {
 					}
 				}
 			});
-		});
-		$("tbody .btn-success").click(function() {
-			window.location.href = "assignRole.html";
-		});
-		$("tbody .btn-primary").click(function() {
-			window.location.href = "edit.html";
 		});
 	</script>
 </body>

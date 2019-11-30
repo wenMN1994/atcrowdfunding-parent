@@ -27,4 +27,8 @@ public interface TAdminService {
 
 	void saveUser(TAdmin admin);
 
+	TAdmin getTAdminById(Integer id);
+
+	void editUser(TAdmin admin);
+
 }

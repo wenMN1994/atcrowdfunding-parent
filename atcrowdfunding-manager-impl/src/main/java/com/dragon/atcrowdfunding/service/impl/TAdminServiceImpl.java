@@ -74,4 +74,15 @@ public class TAdminServiceImpl implements TAdminService {
 	public void saveUser(TAdmin admin) {
 		adminMapper.insert(admin);
 	}
+
+	@Override
+	public TAdmin getTAdminById(Integer id) {
+		return adminMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void editUser(TAdmin admin) {
+		adminMapper.updateByPrimaryKeySelective(admin);
+	}
+		
 }
