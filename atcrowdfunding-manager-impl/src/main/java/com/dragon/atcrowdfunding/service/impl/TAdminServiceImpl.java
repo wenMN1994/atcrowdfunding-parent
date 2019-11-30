@@ -58,9 +58,20 @@ public class TAdminServiceImpl implements TAdminService {
 
 	@Override
 	public PageInfo<TAdmin> listAdminPage(Map<String, Object> paramMap) {
+		
 		TAdminExample example = new TAdminExample();
+		
+		example.setOrderByClause("createtime desc");
+		
 		List<TAdmin> list = adminMapper.selectByExample(example);
+		
 		PageInfo<TAdmin> page = new PageInfo<TAdmin>(list, 5);
+		
 		return page;
+	}
+
+	@Override
+	public void saveUser(TAdmin admin) {
+		adminMapper.insert(admin);
 	}
 }

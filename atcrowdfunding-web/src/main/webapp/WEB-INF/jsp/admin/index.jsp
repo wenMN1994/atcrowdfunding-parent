@@ -59,7 +59,7 @@ table tbody td:nth-child(even) {
 							<i class=" glyphicon glyphicon-remove"></i> 删除
 						</button>
 						<button type="button" class="btn btn-primary"
-							style="float: right;" onclick="window.location.href='add.html'">
+							style="float: right;" onclick="window.location.href='${PATH}/admin/toAdd'">
 							<i class="glyphicon glyphicon-plus"></i> 新增
 						</button>
 						<br>

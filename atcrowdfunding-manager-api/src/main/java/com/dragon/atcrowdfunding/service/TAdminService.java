@@ -25,4 +25,6 @@ public interface TAdminService {
 
 	PageInfo<TAdmin> listAdminPage(Map<String, Object> paramMap);
 
+	void saveUser(TAdmin admin);
+
 }

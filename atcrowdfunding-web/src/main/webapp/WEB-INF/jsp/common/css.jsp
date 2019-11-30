@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="${PATH}/static/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="${PATH}/static/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${PATH}/static/css/font-awesome.min.css">
 <link rel="stylesheet" href="${PATH}/static/css/carousel.css">
 <link rel="stylesheet" href="${PATH}/static/css/main.css">
+<link rel="stylesheet" href="${PATH}/static/css/doc.min.css">
