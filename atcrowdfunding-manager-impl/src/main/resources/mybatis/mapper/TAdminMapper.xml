@@ -225,4 +225,13 @@
       createtime = #{createtime,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- ***********************************************自定义SQL******************************************************* -->
+  <!-- void deleteBatchUser(@Param("idList") List<Integer> idList); -->
+  <delete id="deleteBatchUser">
+  	delete from t_admin where id in 
+  	<foreach collection="idList" item="adminId" open="(" separator="," close=")">
+  		${adminId}
+  	</foreach>
+  </delete>
+  
 </mapper>

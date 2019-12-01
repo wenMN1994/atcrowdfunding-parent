@@ -1,6 +1,8 @@
 package com.dragon.atcrowdfunding.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.filefilter.FalseFileFilter;
@@ -38,11 +40,16 @@ public class TAdminController {
 	@RequestMapping("/admin/index")
 	public String index(@RequestParam(value="pageNum", required=false, defaultValue="1") Integer pageNum, 
 			@RequestParam(value="pageSize", required=false, defaultValue="2")Integer pageSize,
+			String condition,
 			Model model) {
 		log.debug("跳转用户列表。。。");
+		log.debug("condition={}", condition);
+		
 		PageHelper.startPage(pageNum, pageSize);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("condition", condition);
 		
 		PageInfo<TAdmin> page = adminService.listAdminPage(paramMap);
 		
@@ -84,6 +91,20 @@ public class TAdminController {
 	public String doDelete(Integer id, Integer pageNum) {
 		log.debug("删除用户。。。");
 		adminService.deleteUser(id);
+		return "redirect:/admin/index?pageNum="+pageNum;
+	}
+	
+	@RequestMapping("/admin/deleteBatch")
+	public String deleteBatch(String ids, Integer pageNum) {
+		log.debug("批量删除用户={}",ids);
+		List<Integer> idList = new ArrayList<Integer>();
+		String[] split = ids.split(",");
+		for (String idStr : split) {
+			int id = Integer.parseInt(idStr);
+			idList.add(id);
+		}
+		log.debug("idList={}",idList);
+		adminService.deleteBatchUser(idList);
 		return "redirect:/admin/index?pageNum="+pageNum;
 	}
 }

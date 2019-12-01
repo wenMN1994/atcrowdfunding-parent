@@ -1,5 +1,6 @@
 package com.dragon.atcrowdfunding.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.dragon.atcrowdfunding.bean.TAdmin;
@@ -32,5 +33,7 @@ public interface TAdminService {
 	void editUser(TAdmin admin);
 
 	void deleteUser(Integer id);
+
+	void deleteBatchUser(List<Integer> idList);
 
 }

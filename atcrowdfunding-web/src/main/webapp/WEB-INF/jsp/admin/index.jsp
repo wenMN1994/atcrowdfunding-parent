@@ -42,20 +42,20 @@ table tbody td:nth-child(even) {
 						</h3>
 					</div>
 					<div class="panel-body">
-						<form class="form-inline" role="form" style="float: left;">
+						<form id="queryForm" class="form-inline" role="form" style="float: left;" action="${PATH}/admin/index" method="post">
 							<div class="form-group has-feedback">
 								<div class="input-group">
 									<div class="input-group-addon">查询条件</div>
-									<input class="form-control has-success" type="text"
+									<input class="form-control has-success" type="text" name="condition" value="${param.condition}"
 										placeholder="请输入查询条件">
 								</div>
 							</div>
-							<button type="button" class="btn btn-warning">
+							<button type="button" class="btn btn-warning" onclick="$('#queryForm').submit()">
 								<i class="glyphicon glyphicon-search"></i> 查询
 							</button>
 						</form>
 						<button type="button" class="btn btn-danger"
-							style="float: right; margin-left: 10px;">
+							style="float: right; margin-left: 10px;" onclick="deleteBatchBtn()">
 							<i class=" glyphicon glyphicon-remove"></i> 删除
 						</button>
 						<button type="button" class="btn btn-primary"
@@ -68,8 +68,8 @@ table tbody td:nth-child(even) {
 							<table class="table  table-bordered">
 								<thead>
 									<tr>
-										<th width="30">#</th>
-										<th width="30"><input type="checkbox"></th>
+										<th width="30">序号</th>
+										<th width="30"><input id="allCheckBtn" type="checkbox"></th>
 										<th>账号</th>
 										<th>名称</th>
 										<th>邮箱地址</th>
@@ -80,7 +80,7 @@ table tbody td:nth-child(even) {
 									<c:forEach items="${page.list}" var="admin" varStatus="status">
 										<tr>
 											<td>${status.count}</td>
-											<td><input type="checkbox"></td>
+											<td><input class="itemCheckBtn" type="checkbox" adminId="${admin.id}"></td>
 											<td>${admin.loginacct}</td>
 											<td>${admin.username}</td>
 											<td>${admin.email}</td>
@@ -106,15 +106,15 @@ table tbody td:nth-child(even) {
 													<li class="disabled"><a href="#">上一页</a></li>
 												</c:if>
 												<c:if test="${!page.isFirstPage}">
-													<li><a href="${PATH}/admin/index?pageNum=${page.pageNum-1}">上一页</a></li>
+													<li><a href="${PATH}/admin/index?condition=${param.condition}&pageNum=${page.pageNum-1}">上一页</a></li>
 												</c:if>
 												
 												<c:forEach items="${page.navigatepageNums}" var="num">
 													<c:if test="${num == page.pageNum}">
-														<li class="active"><a href="${PATH}/admin/index?pageNum=${num}">${num} <span class="sr-only">(current)</span></a></li>
+														<li class="active"><a href="${PATH}/admin/index?condition=${param.condition}&pageNum=${num}">${num} <span class="sr-only">(current)</span></a></li>
 													</c:if>
 													<c:if test="${num != page.pageNum}">
-														<li><a href="${PATH}/admin/index?pageNum=${num}">${num}</a></li>
+														<li><a href="${PATH}/admin/index?condition=${param.condition}&pageNum=${num}">${num}</a></li>
 													</c:if>
 												</c:forEach>
 												
@@ -123,7 +123,7 @@ table tbody td:nth-child(even) {
 													<li class="disabled"><a href="#">下一页</a></li>
 												</c:if>
 												<c:if test="${!page.isLastPage}">
-													<li><a href="${PATH}/admin/index?pageNum=${page.pageNum+1}">下一页</a></li>
+													<li><a href="${PATH}/admin/index?condition=${param.condition}&pageNum=${page.pageNum+1}">下一页</a></li>
 												</c:if>
 											</ul>
 										</td>
@@ -163,6 +163,42 @@ table tbody td:nth-child(even) {
 				layer.close();
 			});
 		});
+		
+		$("#allCheckBtn").click(function() {
+			$(".itemCheckBtn").prop("checked",$(this).prop("checked"));
+		});
+		
+		$(".itemCheckBtn").click(function() {
+			$("#allCheckBtn").prop("checked", $(".itemCheckBtn:checked").length == $(".itemCheckBtn").length);
+		});
+		
+		//删除多个
+		function deleteBatchBtn(){
+			//1、获取到当前被选中要删除的用户
+			var eles = $(".itemCheckBtn:checked");
+			//遍历：1）、如果是jQuery元素[调用jQuery返回的元素都是jQuery元素，除此之外都是dom。this永远都是dom]
+			/* eles.each(function(){
+			this;//当前正在遍历的元素
+			}) */
+			//2）、如果js的原生的一些数组集合之类的；
+			/* var aa = [1,2,34,4];
+			$.each(aa,function(){
+			alert(this);
+			}) */
+			if(eles.length == 0){
+				layer.msg("请选中要删除的数据");
+				return false;
+			}
+			var ids = new Array();
+			eles.each(function(){
+				ids.push($(this).attr("adminId"));
+			});
+			var str = ids.join(",")
+			layer.confirm("确认删除这些【"+str+"】用户吗？", {btn:["确认","取消"]}, function(){
+				window.location.href="${PATH}/admin/deleteBatch?pageNum=${page.pageNum}&ids="+str;
+			}, function(){});
+		}
+
 	</script>
 </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dragon.atcrowdfunding.bean.TAdmin;
 import com.dragon.atcrowdfunding.bean.TAdminExample;
+import com.dragon.atcrowdfunding.bean.TAdminExample.Criteria;
 import com.dragon.atcrowdfunding.exception.LoginException;
 import com.dragon.atcrowdfunding.mapper.TAdminMapper;
 import com.dragon.atcrowdfunding.service.TAdminService;
@@ -61,6 +62,21 @@ public class TAdminServiceImpl implements TAdminService {
 		
 		TAdminExample example = new TAdminExample();
 		
+		String condition = (String) paramMap.get("condition");
+		
+		if(condition != null && !"".equals(condition)) {
+			example.createCriteria().andLoginacctLike("%"+condition+"%");
+			
+			Criteria criteria2 = example.createCriteria();
+			criteria2.andUsernameLike("%"+condition+"%");
+			Criteria criteria3 = example.createCriteria();
+			criteria3.andEmailLike("%"+condition+"%");
+			
+			example.or(criteria2);
+			example.or(criteria3);
+			
+		}
+		
 		example.setOrderByClause("createtime desc");
 		
 		List<TAdmin> list = adminMapper.selectByExample(example);
@@ -88,6 +104,11 @@ public class TAdminServiceImpl implements TAdminService {
 	@Override
 	public void deleteUser(Integer id) {
 		adminMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public void deleteBatchUser(List<Integer> idList) {
+		adminMapper.deleteBatchUser(idList);
 	}
 		
 }
