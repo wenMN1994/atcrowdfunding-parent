@@ -196,7 +196,9 @@ table tbody td:nth-child(even) {
 			var str = ids.join(",")
 			layer.confirm("确认删除这些【"+str+"】用户吗？", {btn:["确认","取消"]}, function(){
 				window.location.href="${PATH}/admin/deleteBatch?pageNum=${page.pageNum}&ids="+str;
-			}, function(){});
+			}, function(){
+				
+			});
 		}
 
 	</script>

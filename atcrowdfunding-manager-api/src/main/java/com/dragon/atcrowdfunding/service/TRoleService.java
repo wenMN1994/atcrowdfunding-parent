@@ -1,5 +1,6 @@
 package com.dragon.atcrowdfunding.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.dragon.atcrowdfunding.bean.TRole;
@@ -23,5 +24,7 @@ public interface TRoleService {
 	void updateTRole(TRole role);
 
 	void deleteTRole(Integer id);
+
+	void deleteTRole(List<Integer> idList);
 
 }

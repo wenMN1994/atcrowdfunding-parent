@@ -161,4 +161,12 @@
     set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- ***********************************************自定义SQL******************************************************* -->
+  <!-- void deleteBatchUser(List<Integer> idList); -->
+  <delete id="deleteBatchUser">
+  	delete from t_role where id in 
+  	<foreach collection="idList" item="roleId" open="(" separator="," close=")">
+  		${roleId}
+  	</foreach>
+  </delete>
 </mapper>

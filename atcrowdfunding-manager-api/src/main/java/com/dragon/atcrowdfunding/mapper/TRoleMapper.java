@@ -27,4 +27,6 @@ public interface TRoleMapper {
     int updateByPrimaryKeySelective(TRole record);
 
     int updateByPrimaryKey(TRole record);
+
+	void deleteBatchUser(@Param("idList") List<Integer> idList);
 }

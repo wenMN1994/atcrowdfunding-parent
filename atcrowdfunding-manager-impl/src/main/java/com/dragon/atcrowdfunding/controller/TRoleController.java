@@ -7,7 +7,9 @@ package com.dragon.atcrowdfunding.controller;
  * @date 2019年12月1日
  */
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -80,6 +82,21 @@ public class TRoleController {
 	public String doDelete(Integer id) {
 		log.debug("删除角色。。。");
 		roleService.deleteTRole(id);
+		return "ok";
+	}
+	
+	@RequestMapping("/role/deleteBatch")
+	@ResponseBody
+	public String deleteBatch(String ids) {
+		log.debug("删除角色。。。");
+		List<Integer> idList = new ArrayList<Integer>();
+		String[] split = ids.split(",");
+		for (String idStr : split) {
+			int id = Integer.parseInt(idStr);
+			idList.add(id);
+		}
+		log.debug("idList={}",idList);
+		roleService.deleteTRole(idList);
 		return "ok";
 	}
 }

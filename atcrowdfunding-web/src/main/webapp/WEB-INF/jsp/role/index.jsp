@@ -53,7 +53,7 @@ table tbody td:nth-child(even) {
 								<i class="glyphicon glyphicon-search"></i> 查询
 							</button>
 						</form>
-						<button type="button" class="btn btn-danger"
+						<button id="deleteBatchBtn" type="button" class="btn btn-danger"
 							style="float: right; margin-left: 10px;">
 							<i class=" glyphicon glyphicon-remove"></i> 删除
 						</button>
@@ -68,7 +68,7 @@ table tbody td:nth-child(even) {
 								<thead>
 									<tr>
 										<th width="30">序号</th>
-										<th width="30"><input type="checkbox"></th>
+										<th width="30"><input id="allCheckBtn" type="checkbox"></th>
 										<th>名称</th>
 										<th width="100">操作</th>
 									</tr>
@@ -197,7 +197,7 @@ table tbody td:nth-child(even) {
 			$.each(list,function(i,e){
 				content+='<tr>';
 				content+='  <td>'+(i+1)+'</td>';
-				content+='  <td><input type="checkbox"></td>';
+				content+='  <td><input class="itemCheckBtn" type="checkbox" roleId="'+e.id+'"></td>';
 				content+='  <td>'+e.name+'</td>';
 				content+='  <td>';
 				content+='	  <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
@@ -327,6 +327,42 @@ table tbody td:nth-child(even) {
 			},function(index){
 				
 				layer.close(index);
+			});
+		});
+		
+		$("#allCheckBtn").click(function(){
+			$(".itemCheckBtn").prop("checked",$(this).prop("checked"));
+		});
+		
+		$(".itemCheckBtn").click(function() {
+			$("#allCheckBtn").prop("checked", $(".itemCheckBtn:checked").length == $(".itemCheckBtn").length);
+		});
+		
+		//删除多个
+		$("#deleteBatchBtn").click(function(){
+			//1、获取到当前被选中要删除的用户
+			var eles = $(".itemCheckBtn:checked");
+			if(eles.length == 0){
+				layer.msg("请选中要删除的数据");
+				return false;
+			}
+			var ids = new Array();
+			eles.each(function(){
+				ids.push($(this).attr("roleId"));
+			});
+			var str = ids.join(",")
+			layer.confirm("确认删除这些【"+str+"】用户吗？", {btn:["确认","取消"]}, function(){
+				$.get("${PATH}/role/deleteBatch",{ids:str},function(result){
+					if(result == "ok"){
+						layer.msg("删除成功",{time:1000},function(){
+							initData(json.pageNum);
+						});
+					}else{
+						layer.msg("删除失败");
+					}
+				});
+			}, function(){
+				
 			});
 		});
 		

@@ -62,4 +62,9 @@ public class TRoleServiceImpl implements TRoleService {
 	public void deleteTRole(Integer id) {
 		roleMapper.deleteByPrimaryKey(id);
 	}
+
+	@Override
+	public void deleteTRole(List<Integer> idList) {
+		roleMapper.deleteBatchUser(idList);
+	}
 }
