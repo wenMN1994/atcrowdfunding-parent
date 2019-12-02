@@ -57,8 +57,8 @@ table tbody td:nth-child(even) {
 							style="float: right; margin-left: 10px;">
 							<i class=" glyphicon glyphicon-remove"></i> 删除
 						</button>
-						<button type="button" class="btn btn-primary"
-							style="float: right;" onclick="window.location.href='form.html'">
+						<button id="addBtn" type="button" class="btn btn-primary"
+							style="float: right;">
 							<i class="glyphicon glyphicon-plus"></i> 新增
 						</button>
 						<br>
@@ -92,6 +92,58 @@ table tbody td:nth-child(even) {
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="roleAddModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+					<h4 class="modal-title">角色新增</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label>角色名称</label> <input id="name" name="name" class="form-control"
+								placeholder="输入角色名">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="saveBtn" type="button" class="btn btn-primary">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="roleUpdateModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+					<h4 class="modal-title">角色修改</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label>角色名称</label>
+							<input type="hidden" name="id">
+							<input id="name" name="name" class="form-control"placeholder="输入角色名">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="updateBtn" type="button" class="btn btn-primary">修改</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<%@ include file="/WEB-INF/jsp/common/js.jsp"%>
 	<script type="text/javascript">
@@ -149,8 +201,8 @@ table tbody td:nth-child(even) {
 				content+='  <td>'+e.name+'</td>';
 				content+='  <td>';
 				content+='	  <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
-				content+='	  <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
-				content+='	  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+				content+='	  <button type="button" roleId="'+e.id+'" class="updateClass btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
+				content+='	  <button type="button" class="btn btn-danger btn-xs deleteButton" roleId="'+e.id+'"><i class=" glyphicon glyphicon-remove"></i></button>';
 				content+='  </td>';
 				content+='</tr>';
 			});
@@ -186,12 +238,98 @@ table tbody td:nth-child(even) {
 			
 		}
 		
+		//=================添加角色开始========================================
+		
 		$("#queryBtn").click(function(){
 			var condition = $("#condition").val();
 			json.condition = condition;
 			initData(1);
 		});
 
+		$("#addBtn").click(function(){
+			$("#roleAddModal").modal({
+				show:true, //打开
+				backdrop:'static'
+			});
+		});
+		
+		$("#saveBtn").click(function(){
+			var name = $("#roleAddModal input[name='name']").val();
+			var index = -1;
+			$.ajax({
+				type:'post',
+				url:'${PATH}/role/addRole',
+				data:{name:name},
+				beforeSend:function(){
+					index = layer.load(0,{time:10*1000});
+					return true;
+				},
+				success:function(result){
+					if(result == 'ok'){
+						layer.close(index);
+						layer.msg("保存成功",{time:1000},function(){
+							//1、关闭模态框
+							$('#roleAddModal').modal('hide');
+							$("#roleAddModal input[name='name']").val("");
+							initData(1);
+						});
+					}else{
+						layer.close(index);
+						layer.msg("保存失败");
+					}
+				}
+			});
+		});
+		
+		$('tbody').on('click','.updateClass',function(){
+			var roleId = $(this).attr("roleId");
+			$.get("${PATH}/role/getRoleById",{id:roleId},function(result){
+				console.log(result);
+				
+				$("#roleUpdateModal").modal({
+					show:true, //打开
+					backdrop:'static'
+				});
+				
+				$("#roleUpdateModal input[name='name']").val(result.name);
+				$("#roleUpdateModal input[name='id']").val(result.id);
+			});
+		});
+		
+		$("#updateBtn").click(function(){
+			var name = $("#roleUpdateModal input[name='name']").val();
+			var id = $("#roleUpdateModal input[name='id']").val();
+			$.post('${PATH}/role/updateRole',{id:id,name:name},function(result){
+				if(result=="ok"){
+					layer.msg("修改成功",{time:1000},function(){
+						$('#roleUpdateModal').modal('hide');
+						initData(json.pageNum);
+					});
+				}else{
+					layer.msg("修改失败");
+				}
+			});
+		});
+		
+		$('tbody').on('click','.deleteButton',function(){
+			var roleId = $(this).attr("roleId");
+			layer.confirm('您是否确定删除该条数据？',{btn:['确定','取消']},function(index){
+				layer.close(index);
+				$.get("${PATH}/role/doDelete",{id:roleId},function(result){
+					if(result=="ok"){
+						layer.msg("删除成功",{time:1000},function(){
+							initData(json.pageNum);
+						});
+					}else{
+						layer.msg("删除失败");
+					}
+				});
+			},function(index){
+				
+				layer.close(index);
+			});
+		});
+		
 		$("tbody .btn-success").click(function() {
 			window.location.href = "assignPermission.html";
 		});

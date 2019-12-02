@@ -157,10 +157,10 @@ table tbody td:nth-child(even) {
 			var id = $(this).attr("adminId");
 			layer.confirm('您是否确定删除该条数据？',{btn:['确定','取消']},function(index){
 				window.location.href="${PATH}/admin/doDelete?pageNum=${page.pageNum}&id="+id;
-				layer.close();
+				layer.close(index);
 			},function(index){
 				
-				layer.close();
+				layer.close(index);
 			});
 		});
 		

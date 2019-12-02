@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,5 +49,37 @@ public class TRoleController {
 		paramMap.put("condition", condition);
 		PageInfo<TRole> page = roleService.listRolePage(paramMap);
 		return page;
+	}
+	
+	@RequestMapping("/role/addRole")
+	@ResponseBody
+	public String addRole(TRole role) {
+		log.debug("新增角色。。。");
+		roleService.saveTRole(role);
+		return "ok";
+	}
+	
+	@RequestMapping("/role/getRoleById")
+	@ResponseBody
+	public TRole getRoleById(Integer id) {
+		log.debug("根据角色Id查询角色。。。");
+		TRole role = roleService.getRoleById(id);
+		return role;
+	}
+	
+	@RequestMapping("/role/updateRole")
+	@ResponseBody
+	public String updateRole(TRole role) {
+		log.debug("修改角色。。。");
+		roleService.updateTRole(role);
+		return "ok";
+	}
+	
+	@RequestMapping("/role/doDelete")
+	@ResponseBody
+	public String doDelete(Integer id) {
+		log.debug("删除角色。。。");
+		roleService.deleteTRole(id);
+		return "ok";
 	}
 }
