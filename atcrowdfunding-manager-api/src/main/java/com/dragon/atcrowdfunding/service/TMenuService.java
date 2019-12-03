@@ -13,6 +13,8 @@ import com.dragon.atcrowdfunding.bean.TMenu;
  */
 public interface TMenuService {
 
-	List<TMenu> listMenuAll();
+	List<TMenu> listMenuAll();//组合父子关系
+
+	List<TMenu> listMenuAllTree();//不用组合父子关系
 
 }

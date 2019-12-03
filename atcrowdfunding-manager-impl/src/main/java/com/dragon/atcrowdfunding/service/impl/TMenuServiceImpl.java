@@ -54,4 +54,9 @@ public class TMenuServiceImpl implements TMenuService {
 		log.debug("菜单={}",menuList);
 		return menuList;
 	}
+
+	@Override
+	public List<TMenu> listMenuAllTree() {
+		return menuMapper.selectByExample(null);
+	}
 }
