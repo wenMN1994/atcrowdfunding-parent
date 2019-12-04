@@ -1,5 +1,8 @@
 package com.dragon.atcrowdfunding.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TPermission {
     private Integer id;
 
@@ -10,6 +13,8 @@ public class TPermission {
     private String icon;
 
     private Integer pid;
+    
+    private List<TMenu> children = new ArrayList<TMenu>();
 
     public Integer getId() {
         return id;
@@ -47,7 +52,15 @@ public class TPermission {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public List<TMenu> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<TMenu> children) {
+		this.children = children;
+	}
+
+	public void setPid(Integer pid) {
         this.pid = pid;
     }
 }
