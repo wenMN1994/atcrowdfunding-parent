@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,8 +26,8 @@ public class TPermissionController {
 	TPermissionService permissionService;
 	
 	@RequestMapping("/permission/index")
-	public String index() {
-		
+	public String index(Model model) {
+		model.addAttribute("titleName", "许可维护");
 		return "permission/index";
 	}
 	

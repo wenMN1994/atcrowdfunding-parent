@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,8 +25,8 @@ public class TMenuController {
 	TMenuService menuService;
 	
 	@RequestMapping("/menu/index")
-	public String index() {
-		
+	public String index(Model model) {
+		model.addAttribute("titleName", "菜单管理");
 		return "menu/index";
 	}
 	

@@ -44,7 +44,7 @@ public class TAdminController {
 			Model model) {
 		log.debug("跳转用户列表。。。");
 		log.debug("condition={}", condition);
-		
+		model.addAttribute("titleName", "用户管理");
 		PageHelper.startPage(pageNum, pageSize);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();

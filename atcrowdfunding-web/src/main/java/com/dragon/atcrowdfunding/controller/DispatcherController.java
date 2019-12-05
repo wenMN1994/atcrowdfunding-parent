@@ -39,7 +39,7 @@ public class DispatcherController {
 	TMenuService menuService;
 	
 	@RequestMapping("/index")
-	public String index() {
+	public String index(Model model) {
 		log.debug("跳转到系统主页面。。。");
 		return "index";
 	}
@@ -80,9 +80,9 @@ public class DispatcherController {
 	}
 	
 	@RequestMapping("/main")
-	public String main(HttpSession session){
+	public String main(HttpSession session, Model model){
 		log.debug("跳转到后台系统main首页。。。");
-		
+		model.addAttribute("titleName", "控制面板");
 		//存放父菜单
 		List<TMenu> menuList = menuService.listMenuAll();
 		session.setAttribute("menuList", menuList);
