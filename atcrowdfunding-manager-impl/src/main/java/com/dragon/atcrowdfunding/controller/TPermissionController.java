@@ -36,4 +36,31 @@ public class TPermissionController {
 		List<TPermission> list = permissionService.listPermissionAllTree();
 		return list;
 	}
+	
+	@RequestMapping("/permission/doAdd")
+	@ResponseBody
+	public String doAdd(TPermission permission) {
+		permissionService.saveTPermission(permission);
+		return "ok";
+	}
+	
+	@RequestMapping("/permission/getPermissionById")
+	@ResponseBody
+	public TPermission getPermissionById(Integer id) {
+		return permissionService.getPermissionById(id);
+	}
+	
+	@RequestMapping("/permission/doUpdate")
+	@ResponseBody
+	public String doUpdate(TPermission permission) {
+		permissionService.updateTPermission(permission);
+		return "ok";
+	}
+	
+	@RequestMapping("/permission/doDetele")
+	@ResponseBody
+	public String doDetele(Integer id) {
+		permissionService.updateTPermission(id);
+		return "ok";
+	}
 }

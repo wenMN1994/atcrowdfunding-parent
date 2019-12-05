@@ -47,6 +47,74 @@ table tbody td:nth-child(even) {
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+					<h4 class="modal-title">许可权限新增</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<input type="hidden" name="pid">
+							<label>许可标识</label> <input id="name" name="name" class="form-control"
+								placeholder="输入许可标识">
+						</div>
+						<div class="form-group">
+							<label>标识说明</label> <input id="title" name="title" class="form-control"
+								placeholder="输入标识说明">
+						</div>
+						<div class="form-group">
+							<label>许可图标</label> <input id="icon" name="icon" class="form-control"
+								placeholder="输入许可图标">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="saveBtn" type="button" class="btn btn-primary">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+					<h4 class="modal-title">许可权限修改</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<input type="hidden" name="id">
+							<label>许可标识</label> <input id="name" name="name" class="form-control"
+								placeholder="输入许可标识">
+						</div>
+						<div class="form-group">
+							<label>标识说明</label> <input id="title" name="title" class="form-control"
+								placeholder="输入标识说明">
+						</div>
+						<div class="form-group">
+							<label>许可图标</label> <input id="icon" name="icon" class="form-control"
+								placeholder="输入许可图标">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="updateBtn" type="button" class="btn btn-primary">修改</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<%@ include file="/WEB-INF/jsp/common/js.jsp"%>
 	<script type="text/javascript">
@@ -127,20 +195,112 @@ table tbody td:nth-child(even) {
 		
 		//************添加菜单开始****************************************************************
 		function addBtn(id) {
-			
+			$("#addModal").modal({
+				show:true,
+				backdrop:'static',
+				keyboard:false
+			});
+			$("#addModal input[name='pid']").val(id);
 		}
+		$("#saveBtn").click(function(){
+			var pid = $("#addModal input[name='pid']").val();
+			var name = $("#addModal input[name='name']").val();
+			var title = $("#addModal input[name='title']").val();
+			var icon = $("#addModal input[name='icon']").val();
+			$.ajax({
+				type:"post",
+				url:"${PATH}/permission/doAdd",
+				data:{
+					pid:pid,
+					name:name,
+					title:title,
+					icon:icon
+				},
+				beforeSend:function(){
+					return true;
+				},
+				success:function(result){
+					if(result =="ok"){
+						layer.msg("保存成功",{time:1000},function(){
+							$("#addModal").modal('hide');
+							$("#addModal input[name='pid']").val();
+							$("#addModal input[name='name']").val();
+							$("#addModal input[name='title']").val();
+							$("#addModal input[name='icon']").val();
+							initZtree();
+						});
+					}else{
+						layer.msg("保存失败");
+					}
+				}
+			});
+		});
 		//************添加菜单结束****************************************************************
 		
 		//************修改菜单开始****************************************************************
 		function updateBtn(id) {
-			
+			$.get("${PATH}/permission/getPermissionById",{id:id},function(result){
+				$("#updateModal").modal({
+					show:true,
+					backdrop:'static',
+					keyboard:false
+				});
+				$("#updateModal input[name='id']").val(result.id);
+				$("#updateModal input[name='name']").val(result.name);
+				$("#updateModal input[name='title']").val(result.title);
+				$("#updateModal input[name='icon']").val(result.icon);
+			});
 		}
+		
+		$("#updateBtn").click(function(){
+			var id = $("#updateModal input[name='id']").val();
+			var name = $("#updateModal input[name='name']").val();
+			var title = $("#updateModal input[name='title']").val();
+			var icon = $("#updateModal input[name='icon']").val();
+			$.ajax({
+				type:"post",
+				url:"${PATH}/permission/doUpdate",
+				data:{
+					id:id,
+					name:name,
+					title:title,
+					icon:icon
+				},
+				beforeSend:function(){
+					return true;
+				},
+				success:function(result){
+					if(result =="ok"){
+						layer.msg("修改成功",{time:1000},function(){
+							$("#updateModal").modal('hide');
+							initZtree();
+						});
+					}else{
+						layer.msg("修改失败");
+					}
+				}
+			});
+		});
 		
 		//************修改菜单结束****************************************************************
 		
 		//************删除菜单开始****************************************************************
 		function deleteBtn(id) {
-			
+			layer.confirm('您是否确定删除该条数据？',{btn:['确定','取消']},function(index){
+				layer.close(index);
+				$.get("${PATH}/permission/doDetele",{id:id},function(result){
+					if(result=="ok"){
+						layer.msg("删除成功",{time:1000},function(){
+							initZtree();
+						});
+					}else{
+						layer.msg("删除失败");
+					}
+				});
+			},function(index){
+				
+				layer.close(index);
+			});
 		}
 		//************删除菜单结束****************************************************************
 

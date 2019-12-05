@@ -25,4 +25,24 @@ public class TPermissionServiceImpl implements TPermissionService {
 	public List<TPermission> listPermissionAllTree() {
 		return permissionMapper.selectByExample(null);
 	}
+
+	@Override
+	public void saveTPermission(TPermission permission) {
+		permissionMapper.insertSelective(permission);
+	}
+
+	@Override
+	public TPermission getPermissionById(Integer id) {
+		return permissionMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void updateTPermission(TPermission permission) {
+		permissionMapper.updateByPrimaryKeySelective(permission);
+	}
+
+	@Override
+	public void updateTPermission(Integer id) {
+		permissionMapper.deleteByPrimaryKey(id);
+	}
 }

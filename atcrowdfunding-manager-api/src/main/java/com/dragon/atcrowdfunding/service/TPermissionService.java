@@ -15,4 +15,12 @@ public interface TPermissionService {
 
 	List<TPermission> listPermissionAllTree();
 
+	void saveTPermission(TPermission permission);
+
+	TPermission getPermissionById(Integer id);
+
+	void updateTPermission(TPermission permission);
+
+	void updateTPermission(Integer id);
+
 }
