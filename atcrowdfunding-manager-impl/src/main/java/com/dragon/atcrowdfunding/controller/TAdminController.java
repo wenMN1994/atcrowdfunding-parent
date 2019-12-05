@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dragon.atcrowdfunding.bean.TAdmin;
+import com.dragon.atcrowdfunding.bean.TRole;
 import com.dragon.atcrowdfunding.service.TAdminService;
+import com.dragon.atcrowdfunding.service.TRoleService;
 import com.dragon.atcrowdfunding.util.AppDateUtils;
 import com.dragon.atcrowdfunding.util.Const;
 import com.dragon.atcrowdfunding.util.MD5Util;
@@ -36,6 +38,9 @@ public class TAdminController {
 
 	@Autowired
 	TAdminService adminService;
+	
+	@Autowired
+	TRoleService roleService;
 	
 	@RequestMapping("/admin/index")
 	public String index(@RequestParam(value="pageNum", required=false, defaultValue="1") Integer pageNum, 
@@ -107,4 +112,30 @@ public class TAdminController {
 		adminService.deleteBatchUser(idList);
 		return "redirect:/admin/index?pageNum="+pageNum;
 	}
+	
+	
+	@RequestMapping("/admin/toAssign")
+	public String toAssign(String id, Model model) {
+		//1.查询所有角色
+		List<TRole> allList =  roleService.listAllRole();
+		//2.根据用户id查询已经拥有的id
+		List<Integer> roleIdList = roleService.getRoleByAdminId(id);
+		//3.将所有角色进行划分
+		List<TRole> assignList = new ArrayList<TRole>();
+		List<TRole> unAssignList = new ArrayList<TRole>();
+		
+		model.addAttribute("assignList", assignList);
+		model.addAttribute("unAssignList", unAssignList);
+		
+		for (TRole role : allList) {
+			if(roleIdList.contains(role.getId())) {//4.已分配角色
+				assignList.add(role);
+			} else {//5.未分配的角色
+				unAssignList.add(role);
+			}
+		}
+		return "admin/assignRole";
+	}
+	
+	
 }

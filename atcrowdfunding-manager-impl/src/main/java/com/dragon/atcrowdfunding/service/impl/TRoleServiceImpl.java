@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 
 import com.dragon.atcrowdfunding.bean.TRole;
 import com.dragon.atcrowdfunding.bean.TRoleExample;
+import com.dragon.atcrowdfunding.mapper.TAdminRoleMapper;
 import com.dragon.atcrowdfunding.mapper.TRoleMapper;
 import com.dragon.atcrowdfunding.service.TRoleService;
 import com.github.pagehelper.PageInfo;
@@ -24,6 +25,9 @@ public class TRoleServiceImpl implements TRoleService {
 	
 	@Autowired
 	TRoleMapper roleMapper;
+	
+	@Autowired
+	TAdminRoleMapper adminRoleMapper;
 
 	@Override
 	public PageInfo<TRole> listRolePage(Map<String, Object> paramMap) {
@@ -66,5 +70,15 @@ public class TRoleServiceImpl implements TRoleService {
 	@Override
 	public void deleteTRole(List<Integer> idList) {
 		roleMapper.deleteBatchUser(idList);
+	}
+
+	@Override
+	public List<TRole> listAllRole() {
+		return roleMapper.selectByExample(null);
+	}
+
+	@Override
+	public List<Integer> getRoleByAdminId(String id) {
+		return adminRoleMapper.getRoleByAdminId(id);
 	}
 }

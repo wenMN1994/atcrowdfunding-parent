@@ -27,4 +27,8 @@ public interface TRoleService {
 
 	void deleteTRole(List<Integer> idList);
 
+	List<TRole> listAllRole();
+
+	List<Integer> getRoleByAdminId(String id);
+
 }

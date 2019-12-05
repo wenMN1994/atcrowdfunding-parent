@@ -178,4 +178,10 @@
       roleid = #{roleid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- **********************************自定义SQL****************************************************** -->
+  <!-- List<Integer> getRoleByAdminId(String id); -->
+  <select id="getRoleByAdminId" resultType="java.lang.Integer">
+  	select roleid from t_admin_role where adminid = #{id}
+  </select>
 </mapper>
