@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dragon.atcrowdfunding.bean.TAdmin;
 import com.dragon.atcrowdfunding.bean.TRole;
@@ -49,7 +50,7 @@ public class TAdminController {
 			Model model) {
 		log.debug("跳转用户列表。。。");
 		log.debug("condition={}", condition);
-		model.addAttribute("titleName", "用户管理");
+		model.addAttribute("titleName", "用户维护");
 		PageHelper.startPage(pageNum, pageSize);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -124,6 +125,7 @@ public class TAdminController {
 		List<TRole> assignList = new ArrayList<TRole>();
 		List<TRole> unAssignList = new ArrayList<TRole>();
 		
+		model.addAttribute("titleName", "用户维护");
 		model.addAttribute("assignList", assignList);
 		model.addAttribute("unAssignList", unAssignList);
 		
@@ -135,6 +137,28 @@ public class TAdminController {
 			}
 		}
 		return "admin/assignRole";
+	}
+	
+	@RequestMapping("/admin/doAssign")
+	@ResponseBody
+	public String doAssign(Integer[] roleId, Integer adminId) {
+		log.debug("adminId={}",adminId);
+		for (Integer rid : roleId) {
+			log.debug("roleId={}",rid);
+		}
+		roleService.saveAdminAdnRoleRelationship(roleId,adminId);
+		return "ok";
+	}
+	
+	@RequestMapping("/admin/doUnAssign")
+	@ResponseBody
+	public String doUnAssign(Integer[] roleId, Integer adminId) {
+		log.debug("adminId={}",adminId);
+		for (Integer rid : roleId) {
+			log.debug("roleId={}",rid);
+		}
+		roleService.deleteAdminAdnRoleRelationship(roleId,adminId);
+		return "ok";
 	}
 	
 	

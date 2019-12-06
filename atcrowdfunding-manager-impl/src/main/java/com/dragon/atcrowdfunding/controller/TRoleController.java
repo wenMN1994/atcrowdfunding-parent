@@ -39,7 +39,7 @@ public class TRoleController {
 	@RequestMapping("/role/index")
 	public String index(Model model) {
 		log.debug("跳转角色管理界面");
-		model.addAttribute("titleName", "角色管理");
+		model.addAttribute("titleName", "角色维护");
 		return "role/index";
 	}
 	

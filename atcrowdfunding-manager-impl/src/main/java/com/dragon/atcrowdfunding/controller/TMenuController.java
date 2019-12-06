@@ -26,7 +26,7 @@ public class TMenuController {
 	
 	@RequestMapping("/menu/index")
 	public String index(Model model) {
-		model.addAttribute("titleName", "菜单管理");
+		model.addAttribute("titleName", "菜单维护");
 		return "menu/index";
 	}
 	

@@ -114,15 +114,73 @@
             //分配角色
             $("#leftToRightBtn").click(function(){
             	var leftSelectRoleList = $("#leftRoleList option:selected");
-            	$("#rightRoleList").append(leftSelectRoleList.clone());
-            	leftSelectRoleList.remove();
+            	
+            	if(leftSelectRoleList.length == 0){
+            		layer.msg("请选择要分配的角色",{time:2000,icon:6});
+            		return false;
+            	}else{
+            		var str = '';
+            		$.each(leftSelectRoleList,function(i,e){
+            			var roleId = e.value;
+            			str+="roleId="+roleId+"&";
+            		});
+            		str+="adminId=${param.id}";
+            		
+            		$.ajax({
+            			type:"post",
+            			url:"${PATH}/admin/doAssign",
+            			data:str,
+            			success:function(result){
+            				if(result == "ok"){
+            					layer.msg("分配的角色成功",{time:1000,icon:6},function(){
+            						$("#rightRoleList").append(leftSelectRoleList.clone());
+                					leftSelectRoleList.remove();
+            					});
+            				}else{
+            					layer.msg("分配的角色失败",{time:1000,icon:5});
+            				}
+            			}
+            		});
+            		
+            		
+            		
+            	}
             });
             
             //取消分配角色
             $("#rightToLeftBtn").click(function(){
             	var rightSelectRoleList = $("#rightRoleList option:selected");
-            	$("#leftRoleList").append(rightSelectRoleList.clone());
-            	rightSelectRoleList.remove();
+            	
+            	if(rightSelectRoleList.length == 0){
+            		layer.msg("请选择要分配的角色",{time:2000,icon:6});
+            		return false;
+            	}else{
+            		var str = '';
+            		$.each(rightSelectRoleList,function(i,e){
+            			var roleId = e.value;
+            			str+="roleId="+roleId+"&";
+            		});
+            		str+="adminId=${param.id}";
+            		
+            		$.ajax({
+            			type:"post",
+            			url:"${PATH}/admin/doUnAssign",
+            			data:str,
+            			success:function(result){
+            				if(result == "ok"){
+            					layer.msg("分配的角色成功",{time:1000,icon:6},function(){
+                					$("#leftRoleList").append(rightSelectRoleList.clone());
+                	            	rightSelectRoleList.remove();
+            					});
+            				}else{
+            					layer.msg("分配的角色失败",{time:1000,icon:5});
+            				}
+            			}
+            		});
+            		
+            		
+            		
+            	}
             });
         </script>
 </body>
