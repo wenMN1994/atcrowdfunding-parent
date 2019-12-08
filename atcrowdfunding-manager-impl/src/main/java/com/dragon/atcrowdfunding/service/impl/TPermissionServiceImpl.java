@@ -9,7 +9,6 @@ import com.dragon.atcrowdfunding.bean.TPermission;
 import com.dragon.atcrowdfunding.mapper.TPermissionMapper;
 import com.dragon.atcrowdfunding.mapper.TRolePermissionMapper;
 import com.dragon.atcrowdfunding.service.TPermissionService;
-import com.dragon.atcrowdfunding.util.Datas;
 /**
  * 
  * <p>Title: TPermissionServiceImpl</p>  
@@ -22,9 +21,6 @@ public class TPermissionServiceImpl implements TPermissionService {
 	
 	@Autowired
 	TPermissionMapper permissionMapper;
-	
-	@Autowired
-	TRolePermissionMapper rolePermissionMapper;
 
 	@Override
 	public List<TPermission> listPermissionAllTree() {
@@ -49,10 +45,5 @@ public class TPermissionServiceImpl implements TPermissionService {
 	@Override
 	public void updateTPermission(Integer id) {
 		permissionMapper.deleteByPrimaryKey(id);
-	}
-
-	@Override
-	public void saveAdminAndPermissionRelationship(Integer roleId, List<Integer> ids) {
-		rolePermissionMapper.saveAdminAndPermissionRelationship(roleId,ids);
 	}
 }

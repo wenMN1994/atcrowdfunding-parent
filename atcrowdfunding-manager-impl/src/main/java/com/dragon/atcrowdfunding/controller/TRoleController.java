@@ -113,7 +113,16 @@ public class TRoleController {
 		log.debug("roleId={}",roleId);
 		log.debug("permission={}",ds.getIds());
 
-		permissionService.saveAdminAndPermissionRelationship(roleId,ds.getIds());
+		roleService.saveAdminAndPermissionRelationship(roleId,ds.getIds());
 		return "ok";
+	}
+	
+	@RequestMapping("/role/listPermissionIdByRoleId")
+	@ResponseBody
+	public List<Integer> listPermissionIdByRoleId(Integer roleId) {
+		log.debug("roleId={}",roleId);
+
+		List<Integer> list = roleService.listPermissionIdByRoleId(roleId);
+		return list;
 	}
 }

@@ -430,14 +430,23 @@ table tbody td:nth-child(even) {
 
 				};
 			
-			var url = "${PATH}/permission/loadTree";
-			var json = {};
-			$.get(url,json,function(result){
+			//1.加载数据
+			$.get("${PATH}/permission/loadTree",function(result){
 				var zNodes = result;
 				$.fn.zTree.init($("#treeDemo"), setting, zNodes); //异步访问数据
 				
 				var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
 				treeObj.expandAll(true);
+				
+				//2.回显已分配许可
+				$.get("${PATH}/role/listPermissionIdByRoleId",{roleId:roleId},function(result){
+					$.each(result,function(i,e){
+						var permissionId = e;
+						var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+						var node = treeObj.getNodeByParam("id", permissionId, null);
+						treeObj.checkNode(node, true, false, false);
+					});
+				});
 			});
 		}
 		

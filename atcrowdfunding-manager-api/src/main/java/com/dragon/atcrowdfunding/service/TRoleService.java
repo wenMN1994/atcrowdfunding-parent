@@ -34,5 +34,9 @@ public interface TRoleService {
 	void saveAdminAndRoleRelationship(Integer[] roleId, Integer adminId);
 
 	void deleteAdminAndRoleRelationship(Integer[] roleId, Integer adminId);
+	
+	void saveAdminAndPermissionRelationship(Integer roleId, List<Integer> ids);
+
+	List<Integer> listPermissionIdByRoleId(Integer roleId);
 
 }
