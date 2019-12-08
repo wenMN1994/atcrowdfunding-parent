@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dragon.atcrowdfunding.bean.TRole;
+import com.dragon.atcrowdfunding.service.TPermissionService;
 import com.dragon.atcrowdfunding.service.TRoleService;
+import com.dragon.atcrowdfunding.util.Datas;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -35,6 +37,9 @@ public class TRoleController {
 	
 	@Autowired
 	TRoleService roleService;
+	
+	@Autowired
+	TPermissionService permissionService;
 	
 	@RequestMapping("/role/index")
 	public String index(Model model) {
@@ -99,6 +104,16 @@ public class TRoleController {
 		}
 		log.debug("idList={}",idList);
 		roleService.deleteTRole(idList);
+		return "ok";
+	}
+	
+	@RequestMapping("/role/doAssignPermissionToRole")
+	@ResponseBody
+	public String doAssignPermissionToRole(Integer roleId, Datas ds) {
+		log.debug("roleId={}",roleId);
+		log.debug("permission={}",ds.getIds());
+
+		permissionService.saveAdminAndPermissionRelationship(roleId,ds.getIds());
 		return "ok";
 	}
 }

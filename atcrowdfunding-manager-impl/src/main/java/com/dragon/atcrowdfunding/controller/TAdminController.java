@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,7 +145,7 @@ public class TAdminController {
 		for (Integer rid : roleId) {
 			log.debug("roleId={}",rid);
 		}
-		roleService.saveAdminAdnRoleRelationship(roleId,adminId);
+		roleService.saveAdminAndRoleRelationship(roleId,adminId);
 		return "ok";
 	}
 	
@@ -157,7 +156,7 @@ public class TAdminController {
 		for (Integer rid : roleId) {
 			log.debug("roleId={}",rid);
 		}
-		roleService.deleteAdminAdnRoleRelationship(roleId,adminId);
+		roleService.deleteAdminAndRoleRelationship(roleId,adminId);
 		return "ok";
 	}
 	

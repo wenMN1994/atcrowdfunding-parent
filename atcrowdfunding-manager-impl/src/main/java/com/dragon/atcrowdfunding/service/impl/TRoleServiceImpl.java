@@ -83,12 +83,12 @@ public class TRoleServiceImpl implements TRoleService {
 	}
 
 	@Override
-	public void saveAdminAdnRoleRelationship(Integer[] roleId, Integer adminId) {
-		adminRoleMapper.saveAdminAdnRoleRelationship(roleId,adminId);
+	public void saveAdminAndRoleRelationship(Integer[] roleId, Integer adminId) {
+		adminRoleMapper.saveAdminAndRoleRelationship(roleId,adminId);
 	}
 
 	@Override
-	public void deleteAdminAdnRoleRelationship(Integer[] roleId, Integer adminId) {
-		adminRoleMapper.deleteAdminAdnRoleRelationship(roleId,adminId);
+	public void deleteAdminAndRoleRelationship(Integer[] roleId, Integer adminId) {
+		adminRoleMapper.deleteAdminAndRoleRelationship(roleId,adminId);
 	}
 }

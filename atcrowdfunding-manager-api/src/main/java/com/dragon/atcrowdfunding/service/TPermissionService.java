@@ -23,4 +23,6 @@ public interface TPermissionService {
 
 	void updateTPermission(Integer id);
 
+	void saveAdminAndPermissionRelationship(Integer roleId, List<Integer> ids);
+
 }

@@ -31,8 +31,8 @@ public interface TRoleService {
 
 	List<Integer> getRoleByAdminId(String id);
 
-	void saveAdminAdnRoleRelationship(Integer[] roleId, Integer adminId);
+	void saveAdminAndRoleRelationship(Integer[] roleId, Integer adminId);
 
-	void deleteAdminAdnRoleRelationship(Integer[] roleId, Integer adminId);
+	void deleteAdminAndRoleRelationship(Integer[] roleId, Integer adminId);
 
 }

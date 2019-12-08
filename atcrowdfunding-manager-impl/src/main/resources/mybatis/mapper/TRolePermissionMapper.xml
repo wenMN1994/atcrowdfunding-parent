@@ -178,4 +178,13 @@
       permissionid = #{permissionid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- ***************************************自定义SQL************************************************ -->
+  <!-- void saveAdminAndPermissionRelationship(Integer roleId, List<Integer> ids); -->
+  <insert id="saveAdminAndPermissionRelationship">
+  	insert into t_role_permission(roleid,permissionid) value 
+  	<foreach collection="ids" item="id" separator=",">
+  		(${roleId},#{id})
+  	</foreach>
+  </insert>
 </mapper>

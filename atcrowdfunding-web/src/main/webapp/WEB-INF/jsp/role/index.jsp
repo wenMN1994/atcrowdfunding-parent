@@ -143,6 +143,26 @@ table tbody td:nth-child(even) {
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="assignPermissionModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+					<h4 class="modal-title">角色分配</h4>
+				</div>
+				<div class="modal-body">
+					<ul id="treeDemo" class="ztree"></ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="assignBtn" type="button" class="btn btn-primary">分配</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<%@ include file="/WEB-INF/jsp/common/js.jsp"%>
@@ -200,7 +220,7 @@ table tbody td:nth-child(even) {
 				content+='  <td><input class="itemCheckBtn" type="checkbox" roleId="'+e.id+'"></td>';
 				content+='  <td>'+e.name+'</td>';
 				content+='  <td>';
-				content+='	  <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
+				content+='	  <button type="button" roleId="'+e.id+'" class="assignPermissionClass btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
 				content+='	  <button type="button" roleId="'+e.id+'" class="updateClass btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
 				content+='	  <button type="button" class="btn btn-danger btn-xs deleteButton" roleId="'+e.id+'"><i class=" glyphicon glyphicon-remove"></i></button>';
 				content+='  </td>';
@@ -288,7 +308,8 @@ table tbody td:nth-child(even) {
 				
 				$("#roleUpdateModal").modal({
 					show:true, //打开
-					backdrop:'static'
+					backdrop:'static',
+					keybodar:false
 				});
 				
 				$("#roleUpdateModal input[name='name']").val(result.name);
@@ -366,8 +387,94 @@ table tbody td:nth-child(even) {
 			});
 		});
 		
-		$("tbody .btn-success").click(function() {
-			window.location.href = "assignPermission.html";
+		//************给角色分配权限 开始*********************************************************************
+		var roleId = '';
+		$("tbody").on("click",".assignPermissionClass",function(){
+			$("#assignPermissionModal").modal({
+				show:true, //打开
+				backdrop:'static',
+				keybodar:false
+			});
+			
+			roleId = $(this).attr("roleId");
+			
+			initZtree();
+		});
+		
+		function initZtree() {
+			var setting = {
+					callback:{
+	                    onClick:function(event,treeId,treeNode){
+	                    	return false;
+	                    }
+	                },
+	                check: {
+	    				enable: true
+	    			},
+					data: {
+						simpleData: {
+							enable: true,
+							pIdKey: "pid"
+						},
+						key: {
+							name: "title",
+							url: ""
+						}
+					},
+					view:{
+						addDiyDom: function(treeId, treeNode){
+							$("#" + treeNode.tId + "_ico").removeClass();
+							$("#" + treeNode.tId + "_span").before("<span class='"+treeNode.icon+"'></span>");
+						},
+					}
+
+				};
+			
+			var url = "${PATH}/permission/loadTree";
+			var json = {};
+			$.get(url,json,function(result){
+				var zNodes = result;
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes); //异步访问数据
+				
+				var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+				treeObj.expandAll(true);
+			});
+		}
+		
+		$("#assignBtn").click(function(){
+			
+			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+			var nodes = treeObj.getCheckedNodes(true);
+			
+			if(nodes.length == 0){
+        		layer.msg("请选择要分配的权限",{time:2000,icon:6});
+        		return false;
+			}else{
+				var json = {
+						roleId:roleId
+				};
+				
+				$.each(nodes,function(i,e){
+					var permissionId = e.id;
+					json['ids['+i+']']=permissionId;
+						
+				});
+				
+				$.ajax({
+					type:"post",
+					url:"${PATH}/role/doAssignPermissionToRole",
+					data:json,
+					success:function(result){
+						if(result =="ok"){
+							layer.msg("分配成功",{time:1000},function(){
+								$('#assignPermissionModal').modal('hide');
+							});
+						}else{
+							layer.msg("分配失败");
+						}
+					}
+				});
+			}
 		});
 	</script>
 </body>
