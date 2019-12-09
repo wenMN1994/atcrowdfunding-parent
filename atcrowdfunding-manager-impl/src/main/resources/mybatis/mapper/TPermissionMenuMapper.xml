@@ -178,4 +178,18 @@
       permissionid = #{permissionid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- **************************************自定义SQL********************************************************* -->
+  <!-- void saveAssignPermissionToMenu(@Param("menuId") Integer menuId, @Param("ids") List<Integer> ids); -->
+  <insert id="saveAssignPermissionToMenu">
+  	insert into t_permission_menu(menuid,permissionid) value 
+  	<foreach collection="ids" item="id" separator=",">
+  		(${menuId},#{id})
+  	</foreach>
+  </insert>
+  
+  <!-- List<Integer> listPermissionIdByMenuId(Integer menuId); -->
+  <select id="listPermissionIdByMenuId" resultType="java.lang.Integer">
+  	select permissionid from t_permission_menu where menuid=#{menuId}
+  </select>
 </mapper>

@@ -2,6 +2,8 @@ package com.dragon.atcrowdfunding.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dragon.atcrowdfunding.bean.TMenu;
 import com.dragon.atcrowdfunding.service.TMenuService;
+import com.dragon.atcrowdfunding.util.Datas;
 
 /**
  * 
@@ -20,6 +23,8 @@ import com.dragon.atcrowdfunding.service.TMenuService;
  */
 @Controller
 public class TMenuController {
+	
+	Logger log = LoggerFactory.getLogger(TMenuController.class);
 
 	@Autowired
 	TMenuService menuService;
@@ -62,5 +67,23 @@ public class TMenuController {
 	public String deleteMenu(Integer id) {
 		menuService.deleteTMenu(id);
 		return "ok";
+	}
+	
+	@RequestMapping("/menu/doAssignPermissionToMenu")
+	@ResponseBody
+	public String doAssignPermissionToMenu(Integer menuId, Datas ds) {
+		log.debug("menuId={}",menuId);
+		log.debug("permission={}",ds.getIds());
+		menuService.saveAssignPermissionToMenu(menuId,ds.getIds());
+		return "ok";
+	}
+	
+	@RequestMapping("/menu/listPermissionIdByMenuId")
+	@ResponseBody
+	public List<Integer> listPermissionIdByMenuId(Integer menuId) {
+		log.debug("menuId={}",menuId);
+
+		List<Integer> list = menuService.listPermissionIdByMenuId(menuId);
+		return list;
 	}
 }

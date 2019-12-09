@@ -116,6 +116,26 @@ table tbody td:nth-child(even) {
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="assignPermissionModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+					<h4 class="modal-title">给菜单分配权限</h4>
+				</div>
+				<div class="modal-body">
+					<ul id="assignPermissionTree" class="ztree"></ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="assignBtn" type="button" class="btn btn-primary">分配</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<%@ include file="/WEB-INF/jsp/common/js.jsp"%>
 	<script type="text/javascript">
@@ -167,6 +187,7 @@ table tbody td:nth-child(even) {
 									s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="deleteBtn('+treeNode.id+')" title="删除菜单" >&nbsp;&nbsp;<i class="fa fa-fw fa-times rbg "></i></a>';
 								}
 								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="addBtn('+treeNode.id+')" title="添加菜单" >&nbsp;&nbsp;<i class="fa fa-fw fa-plus rbg "></i></a>';
+								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="assignModalBtn('+treeNode.id+')" title="分配权限" >&nbsp;&nbsp;<i class="fa fa-fw fa-anchor rbg "></i></a>';
 							} else if ( treeNode.level == 2 ) {
 								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;"  onclick="updateBtn('+treeNode.id+')" title="修改菜单">&nbsp;&nbsp;<i class="fa fa-fw fa-edit rbg "></i></a>';
 								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="deleteBtn('+treeNode.id+')" title="删除菜单" >&nbsp;&nbsp;<i class="fa fa-fw fa-times rbg "></i></a>';
@@ -308,6 +329,103 @@ table tbody td:nth-child(even) {
 		}
 		//************删除菜单结束****************************************************************
 
+		//************分配权限开始****************************************************************
+		var menuId = '';
+		function assignModalBtn(menuid) {
+			menuId = menuid;
+			$("#assignPermissionModal").modal({
+				show:true, //打开
+				backdrop:'static',
+				keybodar:false
+			});
+			initPermissioinToMenuTree();
+		}
+		
+		function initPermissioinToMenuTree() {
+			var setting = {
+					callback:{
+	                    onClick:function(event,treeId,treeNode){
+	                    	return false;
+	                    }
+	                },
+	                check: {
+	    				enable: true
+	    			},
+					data: {
+						simpleData: {
+							enable: true,
+							pIdKey: "pid"
+						},
+						key: {
+							name: "title",
+							url: ""
+						}
+					},
+					view:{
+						addDiyDom: function(treeId, treeNode){
+							$("#" + treeNode.tId + "_ico").removeClass();
+							$("#" + treeNode.tId + "_span").before("<span class='"+treeNode.icon+"'></span>");
+						},
+					}
+
+				};
+			
+			//1.加载数据
+			$.get("${PATH}/permission/loadTree",function(result){
+				var zNodes = result;
+				$.fn.zTree.init($("#assignPermissionTree"), setting, zNodes); //异步访问数据
+				
+				var treeObj = $.fn.zTree.getZTreeObj("assignPermissionTree");
+				treeObj.expandAll(true);
+				
+				//2.回显已分配许可
+				$.get("${PATH}/menu/listPermissionIdByMenuId",{menuId:menuId},function(result){
+					$.each(result,function(i,e){
+						var permissionId = e;
+						var treeObj = $.fn.zTree.getZTreeObj("assignPermissionTree");
+						var node = treeObj.getNodeByParam("id", permissionId, null);
+						treeObj.checkNode(node, true, false, false);
+					});
+				});
+			});
+		}
+		
+		$("#assignBtn").click(function(){
+			
+			var treeObj = $.fn.zTree.getZTreeObj("assignPermissionTree");
+			var nodes = treeObj.getCheckedNodes(true);
+			
+			if(nodes.length == 0){
+        		layer.msg("请选择要分配的权限",{time:2000,icon:6});
+        		return false;
+			}else{
+				var json = {
+						menuId:menuId
+				};
+				
+				$.each(nodes,function(i,e){
+					var permissionId = e.id;
+					json['ids['+i+']']=permissionId;
+						
+				});
+				
+				$.ajax({
+					type:"post",
+					url:"${PATH}/menu/doAssignPermissionToMenu",
+					data:json,
+					success:function(result){
+						if(result =="ok"){
+							layer.msg("分配成功",{time:1000},function(){
+								$('#assignPermissionModal').modal('hide');
+							});
+						}else{
+							layer.msg("分配失败");
+						}
+					}
+				});
+			}
+		});
+		//************分配权限结束****************************************************************
 	</script>
 </body>
 </html>

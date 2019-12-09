@@ -25,4 +25,8 @@ public interface TMenuService {
 
 	void deleteTMenu(Integer id);
 
+	void saveAssignPermissionToMenu(Integer menuId, List<Integer> ids);
+
+	List<Integer> listPermissionIdByMenuId(Integer menuId);
+
 }

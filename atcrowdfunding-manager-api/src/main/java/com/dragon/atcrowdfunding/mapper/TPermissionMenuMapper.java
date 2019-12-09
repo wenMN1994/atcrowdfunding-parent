@@ -27,4 +27,8 @@ public interface TPermissionMenuMapper {
     int updateByPrimaryKeySelective(TPermissionMenu record);
 
     int updateByPrimaryKey(TPermissionMenu record);
+
+	void saveAssignPermissionToMenu(@Param("menuId") Integer menuId, @Param("ids") List<Integer> ids);
+
+	List<Integer> listPermissionIdByMenuId(Integer menuId);
 }

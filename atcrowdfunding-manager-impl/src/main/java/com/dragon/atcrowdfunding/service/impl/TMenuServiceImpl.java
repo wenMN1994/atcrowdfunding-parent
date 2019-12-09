@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dragon.atcrowdfunding.bean.TMenu;
+import com.dragon.atcrowdfunding.bean.TPermissionMenuExample;
 import com.dragon.atcrowdfunding.mapper.TMenuMapper;
+import com.dragon.atcrowdfunding.mapper.TPermissionMenuMapper;
 import com.dragon.atcrowdfunding.service.TMenuService;
 /**
  * 
@@ -27,6 +29,9 @@ public class TMenuServiceImpl implements TMenuService {
 	
 	@Autowired
 	TMenuMapper menuMapper;
+	
+	@Autowired
+	TPermissionMenuMapper permissionMenuMapper;
 
 	@Override
 	public List<TMenu> listMenuAll() {
@@ -78,6 +83,21 @@ public class TMenuServiceImpl implements TMenuService {
 	@Override
 	public void deleteTMenu(Integer id) {
 		menuMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public void saveAssignPermissionToMenu(Integer menuId, List<Integer> ids) {
+		//先删除之前分配过的，然后重新分配所有打勾的
+		TPermissionMenuExample example = new TPermissionMenuExample();
+		example.createCriteria().andMenuidEqualTo(menuId);
+		permissionMenuMapper.deleteByExample(example);
+		
+		permissionMenuMapper.saveAssignPermissionToMenu(menuId,ids);
+	}
+
+	@Override
+	public List<Integer> listPermissionIdByMenuId(Integer menuId) {
+		return permissionMenuMapper.listPermissionIdByMenuId(menuId);
 	}
 	
 }
