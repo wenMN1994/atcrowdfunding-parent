@@ -29,4 +29,6 @@ public interface TRoleMapper {
     int updateByPrimaryKey(TRole record);
 
 	void deleteBatchUser(@Param("idList") List<Integer> idList);
+
+	List<TRole> getRoleByAdminId(Integer id);
 }

@@ -169,4 +169,9 @@
   		${roleId}
   	</foreach>
   </delete>
+  
+  <!-- List<TRole> getRoleByAdminId(Integer id); -->
+  <select id="getRoleByAdminId" resultMap="BaseResultMap">
+  	SELECT t_role.* FROM t_role JOIN t_admin_role ON t_role.id = t_admin_role.roleid WHERE t_admin_role.adminid = #{id}
+  </select>
 </mapper>

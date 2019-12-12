@@ -16,6 +16,7 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,6 +61,7 @@ public class TRoleController {
 		return page;
 	}
 	
+	@PreAuthorize("hasRole('PM - 项目经理')")
 	@RequestMapping("/role/addRole")
 	@ResponseBody
 	public String addRole(TRole role) {

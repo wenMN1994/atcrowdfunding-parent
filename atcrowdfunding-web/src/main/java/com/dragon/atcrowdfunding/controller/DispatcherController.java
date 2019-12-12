@@ -45,13 +45,16 @@ public class DispatcherController {
 	}
 	
 	
-	@RequestMapping("/login")
+	@RequestMapping("/toLogin")
 	public String login() {
 		log.debug("跳转到登录主页面。。。");
 		return "login";
 	}
 	
-	@RequestMapping("/doLogin")
+	/**
+	 * 集成SpringSecurity后取消自定义登录验证功能
+	 */
+	/*@RequestMapping("/doLogin")
 	public String doLogin(String loginacct, String userpswd, HttpSession session, Model model) {
 		log.debug("开始登录。。。");
 		
@@ -77,7 +80,7 @@ public class DispatcherController {
 			return "login";
 		}
 			
-	}
+	}*/
 	
 	@RequestMapping("/main")
 	public String main(HttpSession session, Model model){
@@ -89,7 +92,10 @@ public class DispatcherController {
 		return "main";
 	}
 	
-	@RequestMapping("/logout")
+	/**
+	 * 集成SpringSecurity后取消自定义注销功能
+	 */
+/*	@RequestMapping("/logout")
 	public String logout(HttpSession session){
 		log.debug("注销系统。。。");
 		if(session != null) {
@@ -97,6 +103,6 @@ public class DispatcherController {
 			session.invalidate();
 		}
 		return "redirect:/index";
-	}
+	}*/
 
 }

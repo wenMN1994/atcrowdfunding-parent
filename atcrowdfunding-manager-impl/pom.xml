@@ -137,6 +137,13 @@
             <artifactId>mybatis-generator-core</artifactId>
         </dependency>
 
+		<dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <!-- 目标环境已经有了 -->
+            <scope>provided</scope>
+        </dependency>
+
 
         <!-- 日志 -->
         <!-- logback，和log4j都是日志框架，我们用logback -->

@@ -208,4 +208,18 @@
       pid = #{pid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- ********************************自定义SQL*********************************************************************** -->
+  <!-- List<TPermission> getPermissionsByAdminId(Integer id); -->
+  <select id="getPermissionsByAdminId" resultMap="BaseResultMap">
+  	SELECT DISTINCT t_permission.* FROM t_permission JOIN t_role_permission 
+	ON t_permission.id = t_role_permission.permissionid 
+	JOIN t_role 
+	ON t_role_permission.roleid = t_role.id 
+	JOIN t_admin_role
+	ON t_role.id = t_admin_role.roleid
+	JOIN t_admin
+	ON t_admin_role.adminid = t_admin.id
+	WHERE t_admin.id = #{id};
+  </select>
 </mapper>

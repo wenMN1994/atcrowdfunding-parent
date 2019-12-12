@@ -4,6 +4,6 @@
     <title>众筹网</title>
   </head>
   <body>
-  	<jsp:forward page="/index"></jsp:forward>
+  	<jsp:forward page="/toIndex"></jsp:forward>
   </body>
 </html>

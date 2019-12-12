@@ -29,7 +29,7 @@
 
 	<div class="container">
 
-		<form id="loginForm" class="form-signin" role="form" action="doLogin"
+		<form id="loginForm" class="form-signin" role="form" action="login"
 			method="post">
 			<h2 class="form-signin-heading">
 				<i class="glyphicon glyphicon-log-in"></i> 用户登录
@@ -50,7 +50,7 @@
 					class="glyphicon glyphicon-lock form-control-feedback"></span>
 			</div>
 			<div class="checkbox">
-				<label> <input type="checkbox" value="remember-me">
+				<label> <input type="checkbox" name="remember-me">
 					记住我
 				</label> <br> <label> 忘记密码 </label> <label style="float: right">
 					<a href="reg.html">我要注册</a>
